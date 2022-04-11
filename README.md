@@ -1,2 +1,2 @@
 # MyHealthCare
-Bedő László, Donáth Dániel-Zsolt
+Bedő László, Donáth Dániel-Zsolt, Barabási Zsolt
