@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/drawable/ic_avatar.xml" value="0.3828125" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/drawable/ic_medical_services.xml" value="0.3828125" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/drawable/rounded_layout_bg.xml" value="0.3828125" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_book_appointment.xml" value="0.33" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_department_list.xml" value="0.25" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_feedback.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_forgot_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_hospital_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_login.xml" value="0.3217550274223035" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_make_appointment.xml" value="0.22" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_medic.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_medic_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_medical_department_list.xml" value="0.33" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_my_appointments.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/fragment_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/hospital_recyclerview_element.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/make_appointment_recyclerview_element.xml" value="0.25" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/medic_recyclerview_element.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/medical_department_recyclerview_element.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/layout/my_appointments_recyclerview_element.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Daniel/3.year/first/Szoftware_rendszerek_tervezese/projekt/MyHealthCare/src/client/app/src/main/res/menu/top_app_bar.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

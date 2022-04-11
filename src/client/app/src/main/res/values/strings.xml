@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">MyHealthCareApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    log in-->
+    <string name="email">Email</string>
+    <string name="log_in">Log in</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="click_here">Click here</string>
+    <string name="new_to_app">New  to MyHealthCare?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="make_appointment">Make appointment</string>
+    <string name="feedback">Feedback</string>
+    <string name="my_appointments">My appointments</string>
+
+
+    <!--    register-->
+    <string name="register">Register</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last name</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="forgot_password_text">We will sen you an email with instructions on how to reset your password</string>
+    <string name="email_me">EMAIL ME</string>
+    <string name="error">Field is required</string>
+    <string name="app_bar_title">Make Appointment</string>
+    <string name="search">Search</string>
+    <string name="content_description_search">Search Icon</string>
+    <string name="filter">Filter</string>
+    <string name="content_description_more">Filter icon</string>
+    <string name="profile">profile</string>
+    <string name="content_description_profile">Profile icon</string>
+    <string name="content_description_filter">Filter icon</string>
+    <string name="registration_date">Registration date</string>
+    <string name="client_photo">Client Photo</string>
+    <string name="personal_code">Personal Code</string>
+    <string name="reset_password">Reset password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="cnp_error">Invalid Personal Code</string>
+    <string name="log_out">Log Out</string>
+    <string name="profile_title">My Profile</string>
+    <string name="selected_hospital">Selected Hospital</string>
+    <string name="selected_department">Selected Department</string>
+    <string name="selected_day">Appointment date</string>
+    <string name="selected_time">Appointment time</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="select_time_interval">Select Time Interval</string>
+    <string name="summary">Summary</string>
+    <string name="accept">Accept</string>
+    <string name="select_hospital">Select Hospital</string>
+    <string name="select_department">Select Department</string>
+    <string name="hospital_hint">Search between hospitals</string>
+    <string name="department_hint">Search between departments</string>
+    <string name="hospital_phone_number">Phone Number</string>
+    <string name="hospital_address">Hospital Address</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="medical_department_name">Medical Department Name</string>
+    <string name="medical_department_address">Medical Department Address</string>
+    <string name="decline">Decline</string>
+    <string name="my_feedbacks">My Feedbacks</string>
+    <string name="log_in_as_medic">Log in as medic</string>
+    <string name="upcoming_appointments">Upcomming appointments</string>
+    <string name="full_name">Full Name</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="hire_date">Hire Date</string>
+    <string name="patient_name">Patient Name</string>
+    <string name="appointment_start_date">Appointment Start</string>
+    <string name="view_details">View Details</string>
+</resources>
