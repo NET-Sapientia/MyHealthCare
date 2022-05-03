@@ -121,3 +121,6 @@ C:\Users\Adam\Documents\egyetem\dotnet\MyHealthCare\src\api\myhealthcareapi\myhe
 C:\Users\Adam\Documents\egyetem\dotnet\MyHealthCare\src\api\myhealthcareapi\myhealthcareapi\obj\Debug\net5.0\myhealthcareapi.genruntimeconfig.cache
 C:\Users\Adam\Documents\egyetem\dotnet\MyHealthCare\src\api\myhealthcareapi\myhealthcareapi\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\Adam\Documents\egyetem\dotnet\MyHealthCare\src\api\myhealthcareapi\myhealthcareapi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Daniel\3.year\second\dotNet\MyHealthCare\src\api\myhealthcareapi\myhealthcareapi\bin\Debug\net5.0\myhealthcareapi.StaticWebAssets.xml
+E:\Daniel\3.year\second\dotNet\MyHealthCare\src\api\myhealthcareapi\myhealthcareapi\bin\Debug\net5.0\AutoMapper.dll
+E:\Daniel\3.year\second\dotNet\MyHealthCare\src\api\myhealthcareapi\myhealthcareapi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
