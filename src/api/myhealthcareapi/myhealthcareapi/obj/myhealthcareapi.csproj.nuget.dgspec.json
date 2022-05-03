@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Daniel\\3.year\\second\\dotNet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj": {}
+    "C:\\Users\\Adam\\Documents\\egyetem\\dotnet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj": {}
   },
   "projects": {
-    "E:\\Daniel\\3.year\\second\\dotNet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj": {
+    "C:\\Users\\Adam\\Documents\\egyetem\\dotnet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Daniel\\3.year\\second\\dotNet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj",
+        "projectUniqueName": "C:\\Users\\Adam\\Documents\\egyetem\\dotnet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj",
         "projectName": "myhealthcareapi",
-        "projectPath": "E:\\Daniel\\3.year\\second\\dotNet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj",
-        "packagesPath": "C:\\Users\\donat\\.nuget\\packages\\",
-        "outputPath": "E:\\Daniel\\3.year\\second\\dotNet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\obj\\",
+        "projectPath": "C:\\Users\\Adam\\Documents\\egyetem\\dotnet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\myhealthcareapi.csproj",
+        "packagesPath": "C:\\Users\\Adam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Adam\\Documents\\egyetem\\dotnet\\MyHealthCare\\src\\api\\myhealthcareapi\\myhealthcareapi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\donat\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Adam\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,8 +25,9 @@
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://nuget.org/api/v2/": {}
         },
         "frameworks": {
           "net5.0": {
@@ -44,6 +45,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.16, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.16, )"
@@ -57,6 +66,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.16, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -81,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
