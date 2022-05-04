@@ -3,7 +3,6 @@ using myhealthcareapi.Models;
 using myhealthcareapi.Controllers;
 using myhealthcareapi.Services;
 using AutoMapper;
-using System;
 using Moq;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,6 +41,13 @@ namespace ClientsControllerTest
             _testModel.Password = "wrong";
             var result = await _controller.Login(_testModel);
             Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async void ReturnStatusCodeResult_whenClientIsOk()
+        {
+            var result = await _controller.Login(_testModel);
+            Assert.IsType<StatusCodeResult>(result);
         }
     }
 }
