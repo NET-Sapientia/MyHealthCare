@@ -44,10 +44,12 @@ namespace ClientsControllerTest
         }
 
         [Fact]
-        public async void ReturnStatusCodeResult_whenClientIsOk()
+        public async void ReturnObjecResult_withSuccesStatusCode_whenClientIsOk()
         {
             var result = await _controller.Login(_testModel);
-            Assert.IsType<StatusCodeResult>(result);
+            var resultObject = (ObjectResult)result;
+            Assert.IsType<ObjectResult>(result);
+            Assert.Equal(200, resultObject.StatusCode);
         }
     }
 }
