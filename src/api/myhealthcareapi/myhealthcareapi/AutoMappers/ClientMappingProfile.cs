@@ -13,6 +13,7 @@ namespace myhealthcareapi.AutoMappers
         public ClientMappingProfile()
         {
             CreateMap<AddClientModel, ClientEntity>();
+            CreateMap<ClientEntity, Client>();
         }
     }
 }
