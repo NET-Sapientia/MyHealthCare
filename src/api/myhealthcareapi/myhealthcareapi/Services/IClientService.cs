@@ -11,6 +11,7 @@ namespace myhealthcareapi.Services
     {
         public Task<ClientServiceResponses> AddClient(ClientEntity Client);
         public Task<ClientEntity> GetClientByEmail(string email);
+        public Task<ClientEntity> GetClientById(int dd);
 
         public string GenerateJwtToken(ClientEntity client);
     }

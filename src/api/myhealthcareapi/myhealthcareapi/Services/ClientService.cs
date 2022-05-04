@@ -72,5 +72,10 @@ namespace myhealthcareapi.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public async Task<ClientEntity> GetClientById(int id)
+        {
+            return await _context.Clients.FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }

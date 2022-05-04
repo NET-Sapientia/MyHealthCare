@@ -18,7 +18,7 @@ namespace myhealthcareapi.DataAccesLayers.Models
         public int ClientId { get; set; }
 
         [ForeignKey(nameof(DepartmentId))]
-        public DepartmentEntity Hospital { get; set; }
+        public DepartmentEntity Department { get; set; }
         public int DepartmentId { get; set; }
 
         [ForeignKey(nameof(MedicId))]

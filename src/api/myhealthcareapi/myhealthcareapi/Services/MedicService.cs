@@ -47,5 +47,10 @@ namespace myhealthcareapi.Services
         {
             return await _context.Medics.FirstOrDefaultAsync(m => string.Equals(email, m.Email));
         }
+
+        public async Task<MedicEntity> GetMedicById(int id)
+        {
+            return await _context.Medics.FirstOrDefaultAsync(m => m.Id == id);
+        }
     }
 }
