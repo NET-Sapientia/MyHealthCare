@@ -19,5 +19,10 @@ namespace myhealthcareapi.Services
         {
             return await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
         }
+
+        public async Task<List<DepartmentEntity>> GetDepartmentsByName(string departmentName)
+        {
+            return await _context.Departments.Where(d => String.Equals(d.Name, departmentName)).ToListAsync();
+        }
     }
 }

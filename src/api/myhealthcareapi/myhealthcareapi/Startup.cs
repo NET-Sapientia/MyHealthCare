@@ -50,12 +50,15 @@ namespace myhealthcareapi
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IMedicService, MedicService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IHospitalService, HospitalService>();
 
 
 
             var configuration = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ClientMappingProfile());
+                mc.AddProfile(new AppointmentMappingProfile());
+                mc.AddProfile(new HospitalMappingProfile());
             });
 
 

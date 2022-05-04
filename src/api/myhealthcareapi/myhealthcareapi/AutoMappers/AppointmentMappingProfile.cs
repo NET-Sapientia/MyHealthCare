@@ -13,8 +13,8 @@ namespace myhealthcareapi.AutoMappers
         public AppointmentMappingProfile()
         {
             CreateMap<AddAppointmentModel, AppointmentEntity>();
-            CreateMap<ClientAppointmentWithNames, ClientAppointmentWithNamesEntity>();
-            CreateMap<MedicAppointmentWithNames, MedicAppointmentWithNamesEntity>();
+            CreateMap<ClientAppointmentWithNamesEntity, ClientAppointmentWithNames>();
+            CreateMap<MedicAppointmentWithNamesEntity, MedicAppointmentWithNames>();
         }
     }
 }
