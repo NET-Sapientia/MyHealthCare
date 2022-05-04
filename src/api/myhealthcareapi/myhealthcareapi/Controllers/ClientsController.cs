@@ -32,7 +32,20 @@ namespace myhealthcareapi.Controllers
         {
             try
             {
-                var client = _mapper.Map<ClientEntity>(clientModel);
+                var client = new ClientEntity();
+                if (clientModel == null)
+                {
+                    client = null;
+                }
+                else
+                {
+                    client.Id = 1;
+                    client.Name = clientModel.Name;
+                    client.Email = clientModel.Email;
+                    client.Address = clientModel.Address;
+                    client.Password = clientModel.Password;
+                }
+                //var client = _mapper.Map<ClientEntity>(clientModel);
                 var result = await _clientService.AddClient(client);
 
                 if(result == ClientServiceResponses.NULLPARAM)
