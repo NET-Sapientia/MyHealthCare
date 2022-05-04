@@ -9,5 +9,6 @@ namespace myhealthcareapi.Services
     public interface IDepartmentService
     {
         public Task<DepartmentEntity> GetDepartmentById(int id);
+        public Task<List<DepartmentEntity>> GetDepartmentsByName(string departmentName);
     }
 }

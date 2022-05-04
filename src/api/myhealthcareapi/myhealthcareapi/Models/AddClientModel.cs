@@ -13,6 +13,7 @@ namespace myhealthcareapi.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Not an email address")]
         [MaxLength(100, ErrorMessage = "Email maximum length is 100")]
         public string Email { get; set; }
 
