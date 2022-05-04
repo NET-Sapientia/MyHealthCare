@@ -78,6 +78,28 @@ namespace myhealthcareapi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Client/{email}")]
+        public async Task<IActionResult> GetClientByEmail(string email)
+        {
+            try
+            {
+                var client = await _clientService.GetClientByEmail(email);
+
+                if (client == null)
+                    return NotFound(new BackEndResponse<object>(404, "User email not found"));
+
+                return StatusCode(200, new BackEndResponse<Client>(200, "Success", _mapper.Map<Client>(client)));
+
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, new BackEndResponse<object>(500, ex.Message));
+            }
+        }
+
+
 
 
     }
