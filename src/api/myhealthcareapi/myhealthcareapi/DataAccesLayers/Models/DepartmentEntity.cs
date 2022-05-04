@@ -18,7 +18,7 @@ namespace myhealthcareapi.DataAccesLayers.Models
         public string Name { get; set; }
         [Required]
         [MaxLength(100)]
-        public string Email { get; set; }
+        public string Contact { get; set; }
 
         [MaxLength(500)]
         public string Description { get; set; }

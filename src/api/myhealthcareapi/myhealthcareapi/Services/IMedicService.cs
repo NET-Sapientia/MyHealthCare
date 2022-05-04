@@ -9,6 +9,7 @@ namespace myhealthcareapi.Services
     public interface IMedicService
     {
         public Task<MedicEntity> GetMedicByEmail(string email);
+        public Task<MedicEntity> GetMedicById(int dd);
         public string GenerateJwtToken(MedicEntity user);
     }
 }

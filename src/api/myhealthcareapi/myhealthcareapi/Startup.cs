@@ -49,6 +49,7 @@ namespace myhealthcareapi
 
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IMedicService, MedicService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
 
 
 
