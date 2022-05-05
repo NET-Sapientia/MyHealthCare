@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.makeAppointment.HospitalListFragment"
+    tools:context=".fragments.makeAppointment.hospital.HospitalListFragment"
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/colorPrimary">

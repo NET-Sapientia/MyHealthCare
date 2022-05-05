@@ -8,21 +8,23 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.cache.Cache
+import com.example.myhealthcareapp.cache.SharedPreferencesManager
 import com.example.myhealthcareapp.constants.Constant.getDate
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.fragments.forgotPassword.ForgotPasswordFragment
 import com.example.myhealthcareapp.fragments.login.LoginFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class ProfileFragment : BaseFragment() {
-    private lateinit var clientFirstName: TextView
-    private lateinit var clientLastName: TextView
+    private lateinit var clientFullName: TextView
     private lateinit var clientPersonalCode: TextView
     private lateinit var clientEmail: TextView
     private lateinit var clientRegistrationDate: TextView
     private lateinit var resetPassword: TextView
     private lateinit var logoutButton: Button
+
+    private val sharedPreferencesManager: SharedPreferencesManager by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +32,9 @@ class ProfileFragment : BaseFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        clientFirstName = view.findViewById(R.id.first_name)
-        clientLastName = view.findViewById(R.id.last_name)
+        clientFullName = view.findViewById(R.id.full_name)
         clientPersonalCode = view.findViewById(R.id.personal_code)
         clientEmail = view.findViewById(R.id.email)
-        clientRegistrationDate = view.findViewById(R.id.registration_date)
         resetPassword = view.findViewById(R.id.click_here_text_view)
         logoutButton = view.findViewById(R.id.logout_button)
 
@@ -47,15 +47,12 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val client = Cache.getClient()
-        val name = client.name.split(" ").toTypedArray()
-        clientFirstName.text = name[0]
-        clientLastName.text = name[1]
-        clientPersonalCode.text = client.personalCode
+        val client = sharedPreferencesManager.getUser()
+        clientFullName.text = client.name
+        clientPersonalCode.text = client.address
         clientEmail.text = client.email
-        clientRegistrationDate.text = getDate((activity as MainActivity).mAuth.currentUser?.metadata?.creationTimestamp!!)
         logoutButton.setOnClickListener{
-            (mActivity as MainActivity).mAuth.signOut()
+            sharedPreferencesManager.deleteUser()
             (mActivity as MainActivity).topAppBar.visibility = View.GONE
             (mActivity as MainActivity).replaceFragment(LoginFragment(), R.id.fragment_container)
             (mActivity as MainActivity).bottomNavigation.visibility = View.GONE

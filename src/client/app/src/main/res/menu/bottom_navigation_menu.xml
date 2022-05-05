@@ -6,11 +6,6 @@
         android:icon="@drawable/ic_medical_services"
         android:title="@string/make_appointment"/>
     <item
-        android:id="@+id/feedback"
-        android:enabled="true"
-        android:icon="@drawable/ic_feedback"
-        android:title="@string/feedback"/>
-    <item
         android:id="@+id/my_appointments"
         android:enabled="true"
         android:icon="@drawable/ic_calendar"

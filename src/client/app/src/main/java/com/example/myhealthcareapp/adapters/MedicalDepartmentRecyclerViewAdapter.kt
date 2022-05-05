@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
-import com.example.myhealthcareapp.models.response.MedicalDepartment
+import com.example.myhealthcareapp.util.OnItemClickListener
+import com.example.myhealthcareapp.model.response.MedicalDepartment
 import kotlinx.android.synthetic.main.medical_department_recyclerview_element.view.*
 
 class MedicalDepartmentRecyclerViewAdapter(
@@ -22,7 +22,7 @@ class MedicalDepartmentRecyclerViewAdapter(
             override fun areItemsTheSame(
                 oldItem: MedicalDepartment,
                 newItem: MedicalDepartment
-            ) = oldItem.medicalDepartmentId == newItem.medicalDepartmentId
+            ) = oldItem.id == newItem.id
 
             override fun areContentsTheSame(
                 oldItem: MedicalDepartment,
@@ -70,7 +70,7 @@ class MedicalDepartmentRecyclerViewAdapter(
                 .into(holder.medicalDepartmentImage)
         }
 
-        holder.medicalDepartmentName.text = currentMedicalDepartment.medicalDepartmentName
-        holder.medicalDepartmentPhoneNumber.text = currentMedicalDepartment.medicalDepartmentPhoneNumber
+        holder.medicalDepartmentName.text = currentMedicalDepartment.name
+        holder.medicalDepartmentPhoneNumber.text = currentMedicalDepartment.contact
     }
 }

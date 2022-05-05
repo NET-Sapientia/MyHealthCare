@@ -1,28 +1,30 @@
 package com.example.myhealthcareapp.fragments.myAppointments
 
 import android.os.Bundle
+import android.os.SharedMemory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.adapters.MyAppointmentsAdapter
-import com.example.myhealthcareapp.api.MyHealthCareViewModel
-import com.example.myhealthcareapp.cache.Cache
+import com.example.myhealthcareapp.cache.SharedPreferencesManager
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.myhealthcareapp.fragments.BaseFragment
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
-import com.example.myhealthcareapp.models.response.ClientAppointmentResponse
+import com.example.myhealthcareapp.model.response.ClientAppointment
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyAppointmentsFragment : BaseFragment(), OnItemClickListener {
-    private lateinit var appointments: MutableList<ClientAppointmentResponse>
+    private lateinit var appointments: MutableList<ClientAppointment>
     private lateinit var adapter : MyAppointmentsAdapter
-    private val viewModel by viewModel<MyHealthCareViewModel>()
+    private val viewModel by viewModel<MyAppointmentsViewModel>()
+    private val sharedPreferencesManager: SharedPreferencesManager by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,18 +32,21 @@ class MyAppointmentsFragment : BaseFragment(), OnItemClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_my_appointments, container, false)
 
-        viewModel.myAppointments.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful){
-                Log.d("myAppointments", response.body().toString())
-                appointments = response.body()?.data as MutableList
-                setupUI(view)
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MyAppointmentsViewModel.UiState.WithAppointments -> {
+                    appointments = state.appointments.toMutableList()
+                    println("Appointments: ${appointments.toString()}")
+                    println("userId: ${sharedPreferencesManager.getUserId()}")
+                    setupUI(view = view)
+                }
+                is MyAppointmentsViewModel.UiState.Error -> {
+                    Toast.makeText(requireActivity(), "Unable to get my appointments", Toast.LENGTH_LONG).show()
+                }
+                else -> Unit
             }
-            else {
-                Log.e("myAppointments", response.errorBody().toString())
-            }
-        })
-
-        viewModel.getAppointments(Cache.getClient().id)
+        }
+        viewModel.getAppointments(id = sharedPreferencesManager.getUserId())
 
         return view
     }
@@ -63,10 +68,9 @@ class MyAppointmentsFragment : BaseFragment(), OnItemClickListener {
         val singleAppointment = appointments[position]
 
         val summary = arrayOf(
-            "Hospital: " + singleAppointment.hospitalName,
-            "Department: " + singleAppointment.medicalDepartmentName,
+            "Department: " + singleAppointment.departmentName,
             "Medic: " + singleAppointment.medicName,
-            "Date & Time: " + singleAppointment.scheduleStartDate + ", " + singleAppointment.scheduleEndDate,
+            "Date & Time: " + singleAppointment.startDate + ", " + singleAppointment.endDates,
         )
 
         MaterialAlertDialogBuilder(requireContext())

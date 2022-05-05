@@ -10,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.api.MyHealthCareViewModel
 import com.example.myhealthcareapp.constants.Constant
 import com.example.myhealthcareapp.fragments.BaseFragment
-import com.example.myhealthcareapp.fragments.makeAppointment.HospitalListFragment
+import com.example.myhealthcareapp.fragments.makeAppointment.hospital.HospitalListFragment
 import com.example.myhealthcareapp.fragments.login.LoginFragment
-import com.example.myhealthcareapp.models.user.Client
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,7 +33,7 @@ class RegisterFragment : BaseFragment() {
     private lateinit var loginTextView: TextView
     private lateinit var progressBar : ProgressBar
 
-    private val viewModel by viewModel<MyHealthCareViewModel>()
+    private val viewModel by viewModel<RegisterViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,44 +55,36 @@ class RegisterFragment : BaseFragment() {
         loginTextView = view.findViewById(R.id.log_in)
         progressBar = view.findViewById(R.id.progress_bar)
 
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is RegisterViewModel.UiState.SignUpSuccess -> {
+                    Toast.makeText(requireActivity(), "Successfully signed up", Toast.LENGTH_LONG).show()
+                    (mActivity as MainActivity).topAppBar.visibility = View.VISIBLE
+                    (mActivity as MainActivity).replaceFragment(HospitalListFragment(), R.id.fragment_container)
+                }
+                is RegisterViewModel.UiState.Error -> {
+                    Toast.makeText(requireActivity(), "Registration Failed", Toast.LENGTH_LONG).show()
+                }
+                else -> Unit
+            }.also {
+                progressBar.visibility = View.INVISIBLE
+            }
+        }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.registration.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful) {
-                Toast.makeText(requireActivity(), "Successfully Registered", Toast.LENGTH_LONG).show()
-                (mActivity as MainActivity).topAppBar.visibility = View.VISIBLE
-                (mActivity as MainActivity).replaceFragment(HospitalListFragment(), R.id.fragment_container)
-            }
-        })
 
         registerButton.setOnClickListener {
             if(validateInput()){
                 progressBar.visibility = View.VISIBLE
-
-                (mActivity as MainActivity).mAuth
-                    .createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
-                    .addOnCompleteListener(
-                        requireActivity()
-                    ) { task ->
-                        if (task.isSuccessful) {
-                            val client = Client(
-                                id = Constant.CLIENT_ID,
-                                name = firstName.text.toString() + " " + lastName.text.toString(),
-                                personalCode = personalCode.text.toString(),
-                                email = email.text.toString(),
-                                password = password.text.toString()
-                            )
-                            viewModel.registerClient(client)
-                        } else {
-                            Toast.makeText(requireActivity(), "Registration Failed", Toast.LENGTH_LONG).show()
-                        }
-
-                        progressBar.visibility = View.INVISIBLE
-                    }
+                viewModel.register(
+                    email = email.text.toString(),
+                    password = password.text.toString(),
+                    address = personalCode.text.toString(),
+                    name = "${firstName.text} ${lastName.text}"
+                )
             }
         }
 

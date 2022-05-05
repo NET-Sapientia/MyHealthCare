@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
-import com.example.myhealthcareapp.models.response.Hospital
+import com.example.myhealthcareapp.util.OnItemClickListener
+import com.example.myhealthcareapp.model.response.HospitalData
 import kotlinx.android.synthetic.main.hospital_recyclerview_element.view.*
 
-class HospitalRecyclerViewAdapter(private var hospitalList : MutableList<Hospital>, private val listener : OnItemClickListener)  : RecyclerView.Adapter<HospitalRecyclerViewAdapter.HospitalRecyclerViewViewHolder>() {
+class HospitalRecyclerViewAdapter(private var hospitalList: MutableList<HospitalData>, private val listener: OnItemClickListener)  : RecyclerView.Adapter<HospitalRecyclerViewAdapter.HospitalRecyclerViewViewHolder>() {
 
     inner class HospitalRecyclerViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val hospitalImage : ImageView = itemView.hospital_image
@@ -35,7 +35,7 @@ class HospitalRecyclerViewAdapter(private var hospitalList : MutableList<Hospita
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun filterList(filterList: MutableList<Hospital>) {
+    fun filterList(filterList: MutableList<HospitalData>) {
         // below line is to add our filtered list
         this.hospitalList = filterList
         // below line is to notify our adapter as change in recycler view data
