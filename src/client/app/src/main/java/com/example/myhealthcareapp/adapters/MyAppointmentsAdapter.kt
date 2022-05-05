@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import kotlinx.android.synthetic.main.my_appointments_recyclerview_element.view.*
 

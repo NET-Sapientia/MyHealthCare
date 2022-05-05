@@ -1,4 +1,4 @@
-package com.example.myhealthcareapp.interfaces
+package com.example.myhealthcareapp.util
 
 interface OnItemClickListener{
     fun onItemClick(position: Int)

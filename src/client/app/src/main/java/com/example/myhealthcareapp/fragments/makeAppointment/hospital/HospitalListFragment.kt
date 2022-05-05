@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,10 +14,9 @@ import com.example.myhealthcareapp.adapters.HospitalRecyclerViewAdapter
 import com.example.myhealthcareapp.constants.Constant.HospitalId
 import com.example.myhealthcareapp.constants.Constant.HospitalName
 import com.example.myhealthcareapp.fragments.BaseFragment
-import com.example.myhealthcareapp.fragments.makeAppointment.MedicalDepartmentListFragment
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
+import com.example.myhealthcareapp.fragments.makeAppointment.department.MedicalDepartmentListFragment
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.example.myhealthcareapp.model.response.HospitalData
-import com.example.myhealthcareapp.model.response.HospitalDataResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*

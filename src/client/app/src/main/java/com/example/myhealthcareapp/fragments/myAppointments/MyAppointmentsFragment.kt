@@ -13,7 +13,7 @@ import com.example.myhealthcareapp.adapters.MyAppointmentsAdapter
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.myhealthcareapp.fragments.BaseFragment
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,18 +29,18 @@ class MyAppointmentsFragment : BaseFragment(), OnItemClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_my_appointments, container, false)
 
-        viewModel.myAppointments.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful){
-                Log.d("myAppointments", response.body().toString())
-                appointments = response.body()?.data as MutableList
-                setupUI(view)
-            }
-            else {
-                Log.e("myAppointments", response.errorBody().toString())
-            }
-        })
-
-        viewModel.getAppointments(1)
+//        viewModel.myAppointments.observe(viewLifecycleOwner, { response ->
+//            if(response.isSuccessful){
+//                Log.d("myAppointments", response.body().toString())
+//                appointments = response.body()?.data as MutableList
+//                setupUI(view)
+//            }
+//            else {
+//                Log.e("myAppointments", response.errorBody().toString())
+//            }
+//        })
+//
+//        viewModel.getAppointments(1)
 
         return view
     }

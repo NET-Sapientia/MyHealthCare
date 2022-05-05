@@ -1,4 +1,4 @@
-package com.example.myhealthcareapp.fragments.makeAppointment
+package com.example.myhealthcareapp.fragments.makeAppointment.medic
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,17 +15,20 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import android.util.Log
 import android.widget.Toast
 import com.example.myhealthcareapp.MainActivity
+import com.example.myhealthcareapp.cache.SharedPreferencesManager
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.fragments.myAppointments.MyAppointmentsFragment
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.example.myhealthcareapp.model.CustomDate
 import com.example.myhealthcareapp.model.response.MakeAppointment
 import com.example.myhealthcareapp.model.response.AvailableDate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,9 +57,9 @@ class BookAppointmentFragment : BaseFragment(),
     private lateinit var selectedHospitalTextView: TextView
     private lateinit var selectedDepartmentTextView: TextView
 
-    private val viewModel by sharedViewModel<MyHealthCareViewModel>()
+    private val viewModel by viewModel<BookAppointmentViewModel>()
+    private val sharedPreferencesManager: SharedPreferencesManager by inject()
     private lateinit var medics: MutableList<Medic>
-    private lateinit var medicDates: MutableList<AvailableDate>
 
     private val freeDays: MutableList<CustomDate> = mutableListOf()
     private val freeHours: MutableList<String> = mutableListOf()
@@ -67,6 +70,7 @@ class BookAppointmentFragment : BaseFragment(),
     ): View? {
         val view = inflater.inflate(R.layout.fragment_book_appointment, container, false)
 
+        initFreeHours()
         currentHospitalName = arguments?.getString("hospitalName").toString()
         currentHospitalId = arguments?.getString("hospitalId").toString()
         currentDepartmentName = arguments?.getString("departmentName").toString()
@@ -85,65 +89,36 @@ class BookAppointmentFragment : BaseFragment(),
         appointmentTime = view.findViewById(R.id.appointment_time)
         appointmentTimeLayout = view.findViewById(R.id.appointment_time_layout)
 
-        viewModel.medics.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful){
-                medics = response.body()?.data as MutableList
-                initUI()
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is BookAppointmentViewModel.UiState.WithMedics -> {
+                    medics = state.medics.toMutableList()
+                    initUI()
+                }
+                is BookAppointmentViewModel.UiState.AppointmentMade -> {
+                    Toast.makeText(requireContext(), "Appointment added", Toast.LENGTH_SHORT).show()
+                    (mActivity as MainActivity).replaceFragment(MyAppointmentsFragment(), R.id.fragment_container)
+                    (mActivity as MainActivity).bottomNavigation.selectedItemId = R.id.my_appointments
+                }
+                is BookAppointmentViewModel.UiState.Error -> {
+                    Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_LONG).show()
+                }
+                else -> Unit
             }
-        })
+        }
 
-        viewModel.medicDates.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful){
-                medicDates = response.body()?.data as MutableList
-                //TODO: populate datePicker
-                getFreeDays()
-            }
-        })
-
-        viewModel.makeAppointment.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful){
-                Toast.makeText(requireContext(), "Appointment added", Toast.LENGTH_SHORT).show()
-                (mActivity as MainActivity).replaceFragment(MyAppointmentsFragment(), R.id.fragment_container)
-                (mActivity as MainActivity).bottomNavigation.selectedItemId = R.id.my_appointments
-            }
-        })
-
-        viewModel.loadMedics(currentDepartmentId.toInt())
+        viewModel.getMedics(id = currentDepartmentId.toInt())
 
         return view
     }
 
-    private fun getFreeDays(){
-        freeDays.clear()
-        medicDates.forEach{ date ->
-            val freeDate = date.startDate.split(" ")
-            val freeDay = freeDate[0]
 
-            formatter.parse(freeDay)
-            val cal = formatter.calendar
-            val customDate = CustomDate(cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DATE])
-
-            if(!freeDays.contains(customDate)){
-                freeDays.add(customDate)
-            }
-        }
-        Log.d("FreeDays", freeDays.toString())
-    }
-
-    private fun getFreeHours(freeDay: String) {
-        freeHours.clear()
-        val filtered = medicDates.filter { date ->
-            date.startDate.contains(freeDay)
-        }
-        filtered.forEach{ date->
-            val startDate = date.startDate.split(" ")
-            val endDate = date.endDate.split(" ")
-            val freeHour = startDate[1] + " - " + endDate[1]
-            if(!freeHours.contains(freeHour)){
-                freeHours.add(freeHour)
-            }
-        }
-        Log.d("FreeHours", freeHours.toString())
+    private fun initFreeHours() {
+        var startHour = 9
+        repeat(times = 3, action = { hour ->
+            freeHours.add("${startHour + hour}:30 - ${startHour + hour + 1}:30")
+            startHour += 2
+        })
     }
 
     private fun initUI() {
@@ -154,7 +129,6 @@ class BookAppointmentFragment : BaseFragment(),
         selectedDepartmentTextView.text = currentDepartmentName
 
         currentMedic = medics[0]
-        viewModel.getMedicDates(currentMedic.id.toString())
         adapter = BookAppointmentAdapter(medics, this)
         recyclerview.adapter = adapter
         recyclerview.setHasFixedSize(true)
@@ -178,12 +152,11 @@ class BookAppointmentFragment : BaseFragment(),
             maxDate[Calendar.YEAR] = year + 1
             datePickerDialog.maxDate = maxDate
 
-            //Disable all SUNDAYS, SATURDAYS and occupied dates between Min and Max Dates
+            //Disable all SUNDAYS, SATURDAYS
             var loopDate: Calendar = minDate
             while (minDate.before(maxDate)) {
                 val dayOfWeek = loopDate[Calendar.DAY_OF_WEEK]
-                val customDate = CustomDate(loopDate[Calendar.YEAR], loopDate[Calendar.MONTH], loopDate[Calendar.DATE])
-                if (dayOfWeek == Calendar.SUNDAY || dayOfWeek == Calendar.SATURDAY || !freeDays.contains(customDate)) {
+                if (dayOfWeek == Calendar.SUNDAY || dayOfWeek == Calendar.SATURDAY) {
                     val disabledDays = arrayOfNulls<Calendar>(1)
                     disabledDays[0] = loopDate
                     datePickerDialog.disabledDays = disabledDays
@@ -224,12 +197,11 @@ class BookAppointmentFragment : BaseFragment(),
                 )
 
                 val appointment = MakeAppointment(
-                    clientId = "1",
-                    hospitalId = currentHospitalId,
-                    medicalDepartmentId = currentDepartmentId,
-                    medicId = currentMedic.id.toString(),
-                    scheduleStartDate = startDate,
-                    scheduleEndDate = endDate,
+                    clientId = sharedPreferencesManager.getUserId(),
+                    departmentId = currentDepartmentId.toInt(),
+                    medicId = currentMedic.id,
+                    startDate = "2022-04-20T08:45:37.102Z",
+                    endDate = "2022-04-20T18:28:49.636Z",
                     notes = "Note is empty"
                 )
 
@@ -258,12 +230,10 @@ class BookAppointmentFragment : BaseFragment(),
         val date = "$year/$month/$day"
         appointmentDate.text = date
         appointmentTime.text = null
-        getFreeHours(date)
     }
 
     override fun onItemClick(position: Int) {
         currentMedic = medics[position]
-        viewModel.getMedicDates(currentMedic.id.toString())
         Log.d("Poz", currentMedic.toString())
         adapter.selectMedic(position)
         appointmentDate.text = null

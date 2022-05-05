@@ -9,9 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.example.myhealthcareapp.model.response.HospitalData
-import com.example.myhealthcareapp.model.response.HospitalDataResponse
 import kotlinx.android.synthetic.main.hospital_recyclerview_element.view.*
 
 class HospitalRecyclerViewAdapter(private var hospitalList: MutableList<HospitalData>, private val listener: OnItemClickListener)  : RecyclerView.Adapter<HospitalRecyclerViewAdapter.HospitalRecyclerViewViewHolder>() {

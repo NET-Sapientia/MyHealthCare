@@ -4,13 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class MedicalDepartment(
     @SerializedName("id")
-    val medicalDepartmentId: Int,
+    val id: Int,
     @SerializedName("name")
-    val medicalDepartmentName: String,
-    @SerializedName("description")
-    val description: String,
+    val name: String,
     @SerializedName("contact")
-    val medicalDepartmentPhoneNumber: String,
-    @SerializedName("hospital")
-    val hospitalName: String
+    val contact: String
 )

@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.example.myhealthcareapp.model.response.Medic
 
 class BookAppointmentAdapter(private val mList: List<Medic>, private val listener : OnItemClickListener) : RecyclerView.Adapter<BookAppointmentAdapter.ViewHolder>() {

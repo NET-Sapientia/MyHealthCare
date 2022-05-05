@@ -1,7 +1,6 @@
-package com.example.myhealthcareapp.fragments.makeAppointment
+package com.example.myhealthcareapp.fragments.makeAppointment.department
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.adapters.MedicalDepartmentRecyclerViewAdapter
-import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.constants.Constant.HospitalId
 import com.example.myhealthcareapp.constants.Constant.HospitalName
 import com.example.myhealthcareapp.fragments.BaseFragment
-import com.example.myhealthcareapp.interfaces.OnItemClickListener
+import com.example.myhealthcareapp.fragments.makeAppointment.medic.BookAppointmentFragment
+import com.example.myhealthcareapp.util.OnItemClickListener
 import com.example.myhealthcareapp.model.response.MedicalDepartment
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MedicalDepartmentListFragment : BaseFragment(), OnItemClickListener {
@@ -28,7 +27,7 @@ class MedicalDepartmentListFragment : BaseFragment(), OnItemClickListener {
     private lateinit var medicalDepartmentAdapter: MedicalDepartmentRecyclerViewAdapter
     private lateinit var selectedHospital: TextView
     private lateinit var recyclerView: RecyclerView
-    private val viewModel by sharedViewModel<MyHealthCareViewModel>()
+    private val viewModel by viewModel<MedicalDepartmentListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,14 +39,21 @@ class MedicalDepartmentListFragment : BaseFragment(), OnItemClickListener {
         recyclerView = view.findViewById(R.id.recycler_view)
 
         selectedHospital.text = arguments?.getString(HospitalName)
-        arguments?.getInt(HospitalId)?.let { viewModel.loadDepartments(it) }
-        viewModel.departments.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful) {
-                departments = response.body()?.data as MutableList
-                Log.d("Departments", departments.toString())
-                setupUI()
+
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is MedicalDepartmentListViewModel.UiState.Error -> {
+                    Toast.makeText(requireActivity(), "Unable to get hospitals", Toast.LENGTH_LONG).show()
+                }
+                is MedicalDepartmentListViewModel.UiState.WithDepartments -> {
+                    departments = state.departments.toMutableList()
+                    setupUI()
+                }
+                else -> Unit
             }
-        })
+        }
+
+        arguments?.getInt(HospitalId)?.let { viewModel.getDepartments(id = it) }
 
         return view
     }
@@ -93,8 +99,8 @@ class MedicalDepartmentListFragment : BaseFragment(), OnItemClickListener {
     override fun onItemClick(position: Int) {
         val selectedHospitalName = arguments?.getString(HospitalName)
         val hospitalId = arguments?.getInt(HospitalId)
-        val departmentName = departments[position].medicalDepartmentName
-        val departmentId = departments[position].medicalDepartmentId
+        val departmentName = departments[position].name
+        val departmentId = departments[position].id
 
         val fragment = BookAppointmentFragment()
         val bundle = Bundle()
@@ -112,7 +118,7 @@ class MedicalDepartmentListFragment : BaseFragment(), OnItemClickListener {
 
         for (item in departments) {
             if (text != null) {
-                if (item.medicalDepartmentName.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
+                if (item.name.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
                     filteredList.add(item)
                 }
             }

@@ -1,25 +1,22 @@
-package com.example.myhealthcareapp.fragments.makeAppointment.hospital
+package com.example.myhealthcareapp.fragments.makeAppointment.department
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myhealthcareapp.data.repository.ContentRepository
 import com.example.myhealthcareapp.model.response.HospitalData
+import com.example.myhealthcareapp.model.response.MedicalDepartment
 import kotlinx.coroutines.launch
 
-class HospitalListViewModel(private val repository: ContentRepository) : ViewModel() {
+class MedicalDepartmentListViewModel(private val repository: ContentRepository) : ViewModel() {
 
     var uiState: MutableLiveData<UiState> = MutableLiveData(UiState.Normal)
 
-    init {
-        getHospitals()
-    }
-
-    fun getHospitals() {
+    fun getDepartments(id: Int) {
         viewModelScope.launch {
-            when (val result = repository.getHospitals()) {
+            when (val result = repository.getMedicalDepartments(id = id)) {
                 null -> uiState.value = UiState.Error
-                else -> uiState.value = UiState.WithHospitals(hospitals = result)
+                else -> uiState.value = UiState.WithDepartments(departments = result)
             }
         }
     }
@@ -27,6 +24,6 @@ class HospitalListViewModel(private val repository: ContentRepository) : ViewMod
     sealed class UiState {
         object Normal: UiState()
         object Error: UiState()
-        data class WithHospitals(val hospitals: List<HospitalData>): UiState()
+        data class WithDepartments(val departments: List<MedicalDepartment>): UiState()
     }
 }
