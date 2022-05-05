@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.adapters.MedicAppointmentAdapter
-import com.example.myhealthcareapp.api.MyHealthCareViewModel
+import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.cache.Cache
 import com.example.myhealthcareapp.fragments.BaseFragment
-import com.example.myhealthcareapp.models.response.ClientAppointmentResponse
+import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 

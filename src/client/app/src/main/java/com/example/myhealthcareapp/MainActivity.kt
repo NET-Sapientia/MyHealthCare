@@ -6,9 +6,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import com.example.myhealthcareapp.api.MyHealthCareInstance
-import com.example.myhealthcareapp.api.MyHealthCareRepository
-import com.example.myhealthcareapp.api.MyHealthCareViewModel
+import com.example.myhealthcareapp.data.v1.MyHealthCareInstance
+import com.example.myhealthcareapp.data.v1.MyHealthCareRepository
+import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.fragments.feedback.FeedbackFragment
 import com.example.myhealthcareapp.fragments.login.LoginFragment
 import com.example.myhealthcareapp.fragments.makeAppointment.HospitalListFragment
@@ -19,7 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var mAuth: FirebaseAuth
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         initBottomNavigation()
         topAppBar.visibility = View.GONE
-        if(mAuth.currentUser == null){
+        if (mAuth.currentUser == null){
             replaceFragment(LoginFragment(), R.id.fragment_container)
         }
         else{

@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.models.response.ClientAppointmentResponse
+import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.medic_appointment_element.view.*
 import com.example.myhealthcareapp.cache.Cache

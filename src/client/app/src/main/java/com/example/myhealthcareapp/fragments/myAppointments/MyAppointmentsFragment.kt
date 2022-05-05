@@ -10,12 +10,12 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.adapters.MyAppointmentsAdapter
-import com.example.myhealthcareapp.api.MyHealthCareViewModel
+import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.cache.Cache
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.interfaces.OnItemClickListener
-import com.example.myhealthcareapp.models.response.ClientAppointmentResponse
+import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

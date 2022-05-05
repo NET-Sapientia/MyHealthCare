@@ -1,7 +1,7 @@
 package com.example.myhealthcareapp.cache
 
-import com.example.myhealthcareapp.models.response.Medic
-import com.example.myhealthcareapp.models.user.Client
+import com.example.myhealthcareapp.model.response.Medic
+import com.example.myhealthcareapp.model.user.Client
 
 object Cache {
     private lateinit var client: Client

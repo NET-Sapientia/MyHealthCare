@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.api.MyHealthCareViewModel
+import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.cache.Cache
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.fragments.forgotPassword.ForgotPasswordFragment
@@ -17,6 +17,7 @@ import com.example.myhealthcareapp.fragments.register.RegisterFragment
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment() {
     private lateinit var emailTextView : TextView
@@ -28,7 +29,7 @@ class LoginFragment : BaseFragment() {
     private lateinit var clickHereTextView : TextView
     private lateinit var progressBar : ProgressBar
     private lateinit var medicCheckBox: CheckBox
-    private val viewModel by sharedViewModel<MyHealthCareViewModel>()
+    private val viewModel by viewModel<LoginViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,45 +47,37 @@ class LoginFragment : BaseFragment() {
         progressBar = view.findViewById(R.id.progress_bar)
         medicCheckBox = view.findViewById(R.id.medic_checkbox)
 
-        viewModel.medicLogin.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful){
-                response.body()?.data?.let { Cache.setMedic(it) }
-                medicCheckBox.isChecked = false
-                (mActivity as MainActivity).replaceFragment(MedicFragment(), R.id.fragment_container)
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is LoginViewModel.UiState.LoginSuccess -> {
+                    Toast.makeText(requireActivity(), "Successfully logged in", Toast.LENGTH_LONG).show()
+                    (mActivity as MainActivity).topAppBar.visibility = View.VISIBLE
+                    (mActivity as MainActivity).replaceFragment(HospitalListFragment(), R.id.fragment_container)
+                }
+                is LoginViewModel.UiState.Error -> {
+                    Toast.makeText(requireActivity(), "Incorrect email or password", Toast.LENGTH_LONG).show()
+                }
+                else -> Unit
+            }.also {
+                progressBar.visibility = View.INVISIBLE
             }
-        })
-
+        }
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         logInButton.setOnClickListener {
             if(validateInput()){
                 progressBar.visibility = View.VISIBLE
 
                 if(!medicCheckBox.isChecked) {
-                    //Client Login
-                    (mActivity as MainActivity).mAuth
-                        .signInWithEmailAndPassword(emailTextView.text.toString(), passwordTextView.text.toString())
-                        .addOnCompleteListener(
-                            requireActivity()
-                        ) { task ->
-                            if (task.isSuccessful) {
-                                Toast.makeText(requireActivity(), "Successfully logged in", Toast.LENGTH_LONG).show()
-                                (mActivity as MainActivity).topAppBar.visibility = View.VISIBLE
-                                (mActivity as MainActivity).replaceFragment(HospitalListFragment(), R.id.fragment_container)
-                            } else {
-                                Toast.makeText(requireActivity(), "Incorrect email or password", Toast.LENGTH_LONG).show()
-                            }
-
-                            progressBar.visibility = View.INVISIBLE
-                        }
+                    viewModel.loginClient(
+                        email = emailTextView.text.toString(),
+                        password = passwordTextView.text.toString()
+                    )
                 }
                 else {
-                    //Medic Login
-                    viewModel.medicLogin(emailTextView.text.toString(), passwordTextView.text.toString())
+                    // medic login
                 }
             }
         }
