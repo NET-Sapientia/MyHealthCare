@@ -28,6 +28,6 @@ interface MyHealthCareApiV2 {
     @POST("/api/Appointments")
     suspend fun makeAppointment(@Body makeAppointment: MakeAppointment): Response<MakeAppointmentResponse>
 
-    @POST("/api/Appointments")
-    suspend fun makeAppointment(@Body makeAppointment: MakeAppointment): Response<MakeAppointmentResponse>
+    @GET("/api/Appointments/ClientAppointments/{clientId}")
+    suspend fun getClientAppointments(@Path("clientId") clientId: Int): Response<ClientAppointmentResponse>
 }

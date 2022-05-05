@@ -2,21 +2,47 @@ package com.example.myhealthcareapp.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ClientAppointmentResponse (
+data class ClientAppointmentResponse(
+    @SerializedName("code")
+    val code : Int?,
+    @SerializedName("error")
+    val error : String?,
+    @SerializedName("result")
+    val result : List<ClientAppointmentResultResponse>?,
+)
+
+data class ClientAppointmentResultResponse (
     @SerializedName("id")
-    val id : Int,
-    @SerializedName("client_name")
-    val clientName : String,
-    @SerializedName("hospital_name")
-    val hospitalName: String,
-    @SerializedName("medical_department_name")
-    val medicalDepartmentName : String,
-    @SerializedName("medic_name")
-    val medicName : String,
-    @SerializedName("scheduled_start_date")
-    val scheduleStartDate : String,
-    @SerializedName("scheduled_end_date")
-    val scheduleEndDate : String,
+    val id : Int?,
+    @SerializedName("departmentName")
+    val departmentName : String?,
+    @SerializedName("medicName")
+    val medicName : String?,
+    @SerializedName("startDate")
+    val startDate : String?,
+    @SerializedName("endDate")
+    val endDates : String?,
     @SerializedName("notes")
-    val notes : String
+    val notes : String?
     )
+
+fun ClientAppointmentResultResponse.toModel() = when {
+    id == null || departmentName == null || medicName == null || startDate == null || endDates == null || notes == null -> null
+    else -> ClientAppointment(
+       id = id,
+       departmentName = departmentName,
+       medicName = medicName,
+       startDate = startDate,
+       endDates = endDates,
+       notes = notes
+    )
+}
+
+data class ClientAppointment(
+    val id : Int,
+    val departmentName : String,
+    val medicName : String,
+    val startDate : String,
+    val endDates : String,
+    val notes : String
+)

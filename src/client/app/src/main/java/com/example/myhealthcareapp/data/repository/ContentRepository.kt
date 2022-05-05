@@ -12,4 +12,6 @@ class ContentRepository(private val instance: MyHealthCareInstanceV2) {
     suspend fun getMedics(id: Int): List<Medic>? = instance.api.getMedics(departmentId = id).body()?.result?.mapNotNull { it.toModel() }
 
     suspend fun makeAppointment(appointment: MakeAppointment) = instance.api.makeAppointment(makeAppointment = appointment).body()?.error
+
+    suspend fun getClientAppointments(id: Int) = instance.api.getClientAppointments(clientId = id).body()?.result?.mapNotNull { it.toModel() }
 }

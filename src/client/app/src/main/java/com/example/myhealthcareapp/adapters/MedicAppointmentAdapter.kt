@@ -8,11 +8,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.R
+import com.example.myhealthcareapp.model.response.ClientAppointment
 import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.medic_appointment_element.view.*
 
-class MedicAppointmentAdapter(private var appointmentList : MutableList<ClientAppointmentResponse>) : RecyclerView.Adapter<MedicAppointmentAdapter.MedicAppointmentViewHolder>() {
+class MedicAppointmentAdapter(private var appointmentList : MutableList<ClientAppointment>) : RecyclerView.Adapter<MedicAppointmentAdapter.MedicAppointmentViewHolder>() {
 
     inner class MedicAppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val patientName : TextView = itemView.patient_name
@@ -45,9 +46,9 @@ class MedicAppointmentAdapter(private var appointmentList : MutableList<ClientAp
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MedicAppointmentViewHolder, position: Int) {
         val itemsViewModel = appointmentList[position]
-        holder.patientName.text = itemsViewModel.clientName
-        holder.medicalDepartmentName.text = itemsViewModel.medicalDepartmentName
-        holder.appointmentDate.text = itemsViewModel.scheduleStartDate + " - " + itemsViewModel.scheduleEndDate
+        holder.patientName.text = itemsViewModel.medicName
+        holder.medicalDepartmentName.text = itemsViewModel.departmentName
+        holder.appointmentDate.text = itemsViewModel.startDate + " - " + itemsViewModel.endDates
     }
 
     override fun getItemCount(): Int = appointmentList.size

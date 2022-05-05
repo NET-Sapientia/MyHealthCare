@@ -12,12 +12,13 @@ import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.adapters.MedicAppointmentAdapter
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.fragments.BaseFragment
+import com.example.myhealthcareapp.model.response.ClientAppointment
 import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class MedicFragment : BaseFragment(){
-    private lateinit var appointments: MutableList<ClientAppointmentResponse>
+    private lateinit var appointments: MutableList<ClientAppointment>
     private lateinit var adapter: MedicAppointmentAdapter
     private lateinit var recyclerView: RecyclerView
     private val viewModel by sharedViewModel<MyHealthCareViewModel>()
@@ -30,13 +31,13 @@ class MedicFragment : BaseFragment(){
 
         recyclerView = view.findViewById(R.id.recycler_view)
 
-        viewModel.medicAppointments.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful){
-                appointments = response.body()?.data as MutableList
-                initUI()
-            }
-            Log.d("medic", response.message().toString())
-        })
+//        viewModel.medicAppointments.observe(viewLifecycleOwner, { response ->
+//            if(response.isSuccessful){
+//                appointments = response.body()?.data as MutableList
+//                initUI()
+//            }
+//            Log.d("medic", response.message().toString())
+//        })
 
         viewModel.getMedicAppointment(1)
 

@@ -10,6 +10,7 @@ import com.example.myhealthcareapp.fragments.login.LoginViewModel
 import com.example.myhealthcareapp.fragments.makeAppointment.department.MedicalDepartmentListViewModel
 import com.example.myhealthcareapp.fragments.makeAppointment.hospital.HospitalListViewModel
 import com.example.myhealthcareapp.fragments.makeAppointment.medic.BookAppointmentViewModel
+import com.example.myhealthcareapp.fragments.myAppointments.MyAppointmentsViewModel
 import com.example.myhealthcareapp.fragments.register.RegisterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -30,4 +31,5 @@ val myHealthCareModule = module {
     viewModel { HospitalListViewModel(repository = get()) }
     viewModel { MedicalDepartmentListViewModel(repository = get()) }
     viewModel { BookAppointmentViewModel(repository = get()) }
+    viewModel { MyAppointmentsViewModel(repository = get()) }
 }
