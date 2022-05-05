@@ -34,7 +34,7 @@ namespace myhealthcareapi.Controllers
                 if (await _departmentService.GetDepartmentById(departmentId) == null)
                     return NotFound(new BackEndResponse<object>(404, "Department not found"));
 
-                return StatusCode(200, new BackEndResponse<List<string>>(200, "Success", await _departmentService.GetDepartmentsMedics(departmentId)));
+                return StatusCode(200, new BackEndResponse<List<MedicNameWithId>>(200, "Success", await _departmentService.GetDepartmentsMedics(departmentId)));
             }
             catch(Exception ex)
             {

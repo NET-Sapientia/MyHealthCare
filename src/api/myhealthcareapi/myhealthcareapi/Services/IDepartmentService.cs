@@ -1,4 +1,5 @@
 ﻿using myhealthcareapi.DataAccesLayers.Models;
+using myhealthcareapi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace myhealthcareapi.Services
     {
         public Task<DepartmentEntity> GetDepartmentById(int id);
         public Task<List<DepartmentEntity>> GetDepartmentsByName(string departmentName);
-        public Task<List<string>> GetDepartmentsMedics(int departmentId);
+        public Task<List<MedicNameWithId>> GetDepartmentsMedics(int departmentId);
     }
 }

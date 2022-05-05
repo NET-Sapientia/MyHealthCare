@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using myhealthcareapi.DataAccesLayers;
 using myhealthcareapi.DataAccesLayers.Models;
+using myhealthcareapi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,11 @@ namespace myhealthcareapi.Services
             return await _context.Departments.Where(d => string.Equals(d.Name, departmentName)).ToListAsync();
         }
 
-        public async Task<List<string>> GetDepartmentsMedics(int departmentId)
+        public async Task<List<MedicNameWithId>> GetDepartmentsMedics(int departmentId)
         {
             return await _context.MedicDepartments.Where(md => md.DepartmentId == departmentId)
                 .Join(_context.Medics, md => md.MedicId, m => m.Id, (md, m) => new { M = m })
-                .Select(m => m.M.Name).ToListAsync();
+                .Select(m => new MedicNameWithId { Name = m.M.Name, Id = m.M.Id }).ToListAsync();
         }
     }
 }
