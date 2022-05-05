@@ -22,7 +22,14 @@ namespace myhealthcareapi.Services
 
         public async Task<List<DepartmentEntity>> GetDepartmentsByName(string departmentName)
         {
-            return await _context.Departments.Where(d => String.Equals(d.Name, departmentName)).ToListAsync();
+            return await _context.Departments.Where(d => string.Equals(d.Name, departmentName)).ToListAsync();
+        }
+
+        public async Task<List<string>> GetDepartmentsMedics(int departmentId)
+        {
+            return await _context.MedicDepartments.Where(md => md.DepartmentId == departmentId)
+                .Join(_context.Medics, md => md.MedicId, m => m.Id, (md, m) => new { M = m })
+                .Select(m => m.M.Name).ToListAsync();
         }
     }
 }

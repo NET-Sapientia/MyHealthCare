@@ -11,5 +11,8 @@ namespace myhealthcareapi.Services
         public Task<List<HospitalEntity>> GetAllHospitals();
 
         public Task<List<HospitalEntity>> GetHospitalsFromDepartments(List<DepartmentEntity> departments);
+
+        public Task<List<DepartmentEntity>> GetHospitalsDepartment(int hospitalId);
+        public Task<HospitalEntity> GetHospitalById(int id);
     }
 }

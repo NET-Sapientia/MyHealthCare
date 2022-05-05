@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace myhealthcareapi.AutoMappers
 {
-    public class ClientMappingProfile : Profile
+    public class MedicMappingProfile : Profile
     {
-        public ClientMappingProfile()
+        public MedicMappingProfile()
         {
-            CreateMap<AddClientModel, ClientEntity>();
-            CreateMap<ClientEntity, Client>();
-            CreateMap<ClientEntity, ClientWithToken>();
+            CreateMap<MedicEntity, MedicWithToken>();
         }
     }
 }

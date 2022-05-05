@@ -29,15 +29,15 @@ namespace myhealthcareapi.Controllers
         {
             try
             {
-                var client = await _medicService.GetMedicByEmail(loginModel.Email);
+                var medic = await _medicService.GetMedicByEmail(loginModel.Email);
 
-                if (client == null)
+                if (medic == null)
                     return NotFound(new BackEndResponse<object>(404, "Medic email not found"));
 
-                if (!string.Equals(loginModel.Password, client.Password))
+                if (!string.Equals(loginModel.Password, medic.Password))
                     return NotFound(new BackEndResponse<object>(404, "Wrong password"));
 
-                return StatusCode(200, new BackEndResponse<string>(200, "Success", _medicService.GenerateJwtToken(client)));
+                return StatusCode(200, new BackEndResponse<MedicWithToken>(200, "Success", new MedicWithToken { Email = medic.Email, Id = medic.Id, Name = medic.Name, Token = _medicService.GenerateJwtToken(medic) }));
 
             }
 
