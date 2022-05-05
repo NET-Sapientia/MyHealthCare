@@ -11,13 +11,9 @@ import com.example.myhealthcareapp.data.v1.MyHealthCareInstance
 import com.example.myhealthcareapp.data.v1.MyHealthCareRepository
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.fragments.login.LoginFragment
-import com.example.myhealthcareapp.fragments.makeAppointment.HospitalListFragment
+import com.example.myhealthcareapp.fragments.makeAppointment.hospital.HospitalListFragment
 import com.example.myhealthcareapp.fragments.myAppointments.MyAppointmentsFragment
 import com.example.myhealthcareapp.fragments.profile.ProfileFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 

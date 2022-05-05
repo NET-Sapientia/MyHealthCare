@@ -3,6 +3,10 @@ package com.example.myhealthcareapp.model.response
 import com.google.gson.annotations.SerializedName
 
 data class HospitalResponse(
-    @SerializedName("data")
-    val data: List<Hospital>
-    )
+    @SerializedName("code")
+    val code: Int?,
+    @SerializedName("error")
+    val error: String?,
+    @SerializedName("result")
+    val result: List<HospitalDataResponse>?
+)

@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.fragments.forgotPassword.ForgotPasswordFragment
-import com.example.myhealthcareapp.fragments.makeAppointment.HospitalListFragment
-import com.example.myhealthcareapp.fragments.medic.MedicFragment
+import com.example.myhealthcareapp.fragments.makeAppointment.hospital.HospitalListFragment
 import com.example.myhealthcareapp.fragments.register.RegisterFragment
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment() {

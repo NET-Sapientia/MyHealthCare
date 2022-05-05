@@ -1,10 +1,10 @@
-package com.example.myhealthcareapp.fragments.makeAppointment
+package com.example.myhealthcareapp.fragments.makeAppointment.hospital
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,21 +12,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.adapters.HospitalRecyclerViewAdapter
-import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.constants.Constant.HospitalId
 import com.example.myhealthcareapp.constants.Constant.HospitalName
 import com.example.myhealthcareapp.fragments.BaseFragment
+import com.example.myhealthcareapp.fragments.makeAppointment.MedicalDepartmentListFragment
 import com.example.myhealthcareapp.interfaces.OnItemClickListener
-import com.example.myhealthcareapp.model.response.Hospital
+import com.example.myhealthcareapp.model.response.HospitalData
+import com.example.myhealthcareapp.model.response.HospitalDataResponse
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class HospitalListFragment : BaseFragment(), OnItemClickListener {
-    private lateinit var hospitals: MutableList<Hospital>
+    private lateinit var hospitals: MutableList<HospitalData>
     private lateinit var recyclerview: RecyclerView
     private lateinit var adapter : HospitalRecyclerViewAdapter
-    private val viewModel by sharedViewModel<MyHealthCareViewModel>()
+    private val viewModel by viewModel<HospitalListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,24 +35,20 @@ class HospitalListFragment : BaseFragment(), OnItemClickListener {
     ): View {
         val view = inflater.inflate(R.layout.fragment_hospital_list, container, false)
 
-        viewModel.hospitals.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccessful) {
-                Log.d("Hospitals", response.body()?.data?.size.toString())
-                hospitals = response.body()?.data as MutableList
-                setupUI(view)
-            } else {
-                Log.e("HospitalError", response.errorBody().toString())
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is HospitalListViewModel.UiState.WithHospitals -> {
+                    hospitals = state.hospitals.toMutableList()
+                    setupUI(view = view)
+                }
+                is HospitalListViewModel.UiState.Error -> {
+                    Toast.makeText(requireActivity(), "Unable to get hospitals", Toast.LENGTH_LONG).show()
+                }
+                else -> Unit
             }
         }
 
-        viewModel.loadHospitals()
-
         return view
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.hospitals.removeObservers(viewLifecycleOwner)
     }
 
     private fun setupUI(view: View){
@@ -62,7 +59,10 @@ class HospitalListFragment : BaseFragment(), OnItemClickListener {
         (mActivity as MainActivity).profileIcon.isVisible = true
 
         recyclerview = view.findViewById(R.id.recycler_view)
-        adapter = HospitalRecyclerViewAdapter(hospitals, this)
+        adapter = HospitalRecyclerViewAdapter(
+            hospitalList = hospitals,
+            listener = this
+        )
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(context)
         recyclerview.setHasFixedSize(true)
@@ -107,7 +107,7 @@ class HospitalListFragment : BaseFragment(), OnItemClickListener {
     }
 
     private fun filter(text: String?) {
-        val filteredList: MutableList<Hospital> = mutableListOf()
+        val filteredList: MutableList<HospitalData> = mutableListOf()
 
         for (item in hospitals) {
             if (text != null) {

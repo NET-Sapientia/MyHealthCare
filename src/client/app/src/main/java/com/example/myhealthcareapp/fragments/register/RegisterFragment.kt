@@ -10,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
 import com.example.myhealthcareapp.constants.Constant
 import com.example.myhealthcareapp.fragments.BaseFragment
-import com.example.myhealthcareapp.fragments.makeAppointment.HospitalListFragment
+import com.example.myhealthcareapp.fragments.makeAppointment.hospital.HospitalListFragment
 import com.example.myhealthcareapp.fragments.login.LoginFragment
-import com.example.myhealthcareapp.model.user.Client
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
