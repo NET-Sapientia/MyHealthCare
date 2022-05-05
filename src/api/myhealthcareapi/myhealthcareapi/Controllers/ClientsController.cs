@@ -32,20 +32,8 @@ namespace myhealthcareapi.Controllers
         {
             try
             {
-                var client = new ClientEntity();
-                if (clientModel == null)
-                {
-                    client = null;
-                }
-                else
-                {
-                    client.Id = 1;
-                    client.Name = clientModel.Name;
-                    client.Email = clientModel.Email;
-                    client.Address = clientModel.Address;
-                    client.Password = clientModel.Password;
-                }
-                //var client = _mapper.Map<ClientEntity>(clientModel);
+                
+                var client = _mapper.Map<ClientEntity>(clientModel);
                 var result = await _clientService.AddClient(client);
 
                 if(result == ClientServiceResponses.NULLPARAM)
@@ -57,7 +45,7 @@ namespace myhealthcareapi.Controllers
                 if(result == ClientServiceResponses.EMAILALREADYEXISTS)
                     return StatusCode(409, new BackEndResponse<object>(409, "Email already exists"));
                 
-                return StatusCode(200, new BackEndResponse<int>(200, "User added", client.Id));
+                return StatusCode(200, new BackEndResponse<Client>(200, "User added", _mapper.Map<Client>(client)));
 
             }
 
@@ -78,10 +66,10 @@ namespace myhealthcareapi.Controllers
                 if (client == null)
                     return NotFound(new BackEndResponse<object>(404, "User email not found"));
 
-                if(!string.Equals(loginModel.Password, client.Password))
+                if (!string.Equals(loginModel.Password, client.Password))
                     return NotFound(new BackEndResponse<object>(404, "Wrong password"));
 
-                return StatusCode(200, new BackEndResponse<string>(200, "Success", _clientService.GenerateJwtToken(client)));
+                return StatusCode(200, new BackEndResponse<ClientWithToken>(200, "Success", new ClientWithToken {Address = client.Address, Email = client.Email, Id = client.Id, Name = client.Name, Token = _clientService.GenerateJwtToken(client) }));
 
             }
 

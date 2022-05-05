@@ -17,7 +17,7 @@ namespace myhealthcareapi.Controllers
     {
         private readonly IHospitalService _hospitalService;
         private readonly IDepartmentService _departmentService;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public HospitalsController(IHospitalService hospitalService, IMapper mapper, IDepartmentService departmentService)
         {
@@ -54,6 +54,29 @@ namespace myhealthcareapi.Controllers
                 var result = await _hospitalService.GetHospitalsFromDepartments(departments);
 
                 return StatusCode(200, new BackEndResponse<List<Hospital>>(200, "Success", _mapper.Map<List<Hospital>>(result)));
+
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, new BackEndResponse<object>(500, ex.Message));
+            }
+        }
+
+        [HttpGet]
+        [Route("HospitalsDepartments/{hospitalId}")]
+        public async Task<IActionResult> GetHospitalsDepartments(int hospitalId)
+        {
+            try
+            {
+                var hospital = await _hospitalService.GetHospitalById(hospitalId);
+
+                if(hospital == null)
+                    return NotFound(new BackEndResponse<object>(404, "Hospital not found"));
+
+                var result = await _hospitalService.GetHospitalsDepartment(hospitalId);
+
+                return StatusCode(200, new BackEndResponse<List<Department>>(200, "Success", _mapper.Map<List<Department>>(result)));
 
             }
 

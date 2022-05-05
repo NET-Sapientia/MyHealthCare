@@ -25,8 +25,8 @@ namespace myhealthcareapi.DataAccesLayers.Models
         [MaxLength(500)]
         public string Description { get; set; }
 
-        public float Longitude { get; set; }
-        public float Latitude { get; set; }
+        public float? Longitude { get; set; }
+        public float? Latitude { get; set; }
 
         public virtual ICollection<DepartmentEntity> Department { get; set; }
         

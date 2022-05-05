@@ -51,6 +51,8 @@ namespace myhealthcareapi
             services.AddScoped<IMedicService, MedicService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IHospitalService, HospitalService>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
 
 
 
@@ -59,6 +61,9 @@ namespace myhealthcareapi
                 mc.AddProfile(new ClientMappingProfile());
                 mc.AddProfile(new AppointmentMappingProfile());
                 mc.AddProfile(new HospitalMappingProfile());
+                mc.AddProfile(new FeedbackMappingProfile());
+                mc.AddProfile(new DepartmentMappingProfile());
+                mc.AddProfile(new MedicMappingProfile());
             });
 
 

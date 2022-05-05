@@ -20,6 +20,16 @@ namespace myhealthcareapi.Services
             return await _context.Hospitals.ToListAsync();
         }
 
+        public async Task<HospitalEntity> GetHospitalById(int id)
+        {
+            return await _context.Hospitals.FirstOrDefaultAsync(h => h.Id == id);
+        }
+
+        public async Task<List<DepartmentEntity>> GetHospitalsDepartment(int hospitalId)
+        {
+            return await _context.Departments.Where(d => d.HospitalId == hospitalId).ToListAsync();
+        }
+
         public async Task<List<HospitalEntity>> GetHospitalsFromDepartments(List<DepartmentEntity> departments)
         {
             List<HospitalEntity> result = new List<HospitalEntity>();
