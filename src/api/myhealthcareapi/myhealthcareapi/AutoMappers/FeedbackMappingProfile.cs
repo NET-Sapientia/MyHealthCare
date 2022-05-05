@@ -13,6 +13,7 @@ namespace myhealthcareapi.AutoMappers
         public FeedbackMappingProfile()
         {
             CreateMap<FeedBackEntity, FeedBack>();
+            CreateMap<AddFeedbackModel, FeedBackEntity>();
         }
     }
 }
