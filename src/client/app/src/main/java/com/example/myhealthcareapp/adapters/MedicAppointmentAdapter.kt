@@ -11,7 +11,6 @@ import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.medic_appointment_element.view.*
-import com.example.myhealthcareapp.cache.Cache
 
 class MedicAppointmentAdapter(private var appointmentList : MutableList<ClientAppointmentResponse>) : RecyclerView.Adapter<MedicAppointmentAdapter.MedicAppointmentViewHolder>() {
 
@@ -26,7 +25,7 @@ class MedicAppointmentAdapter(private var appointmentList : MutableList<ClientAp
                 val summary = arrayOf(
                     "Patient: ${patientName.text}",
                     "Department: ${medicalDepartmentName.text}",
-                    "Medic: " + Cache.getMedic().name,
+                    "Medic: " + "Asd",
                     "Date & Time: ${appointmentDate.text}",
                 )
 

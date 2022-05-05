@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
-import com.example.myhealthcareapp.cache.Cache
 import com.example.myhealthcareapp.fragments.BaseFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -35,9 +34,9 @@ class MedicProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val medic = Cache.getMedic()
-        medicFullName.text = medic.name
-        medicContact.text = medic.contact
-        medicHireDate.text = medic.hireDate
+//        val medic = Cache.getMedic()
+//        medicFullName.text = medic.name
+//        medicContact.text = medic.contact
+//        medicHireDate.text = medic.hireDate
     }
 }

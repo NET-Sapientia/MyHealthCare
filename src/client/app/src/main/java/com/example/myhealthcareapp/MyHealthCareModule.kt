@@ -20,6 +20,6 @@ val myHealthCareModule = module {
     single { MyHealthCareInstanceV2() }
     single { AuthenticationRepository(instance = get()) }
 
-    viewModel { LoginViewModel(repository = get()) }
-    viewModel { RegisterViewModel(repository = get()) }
+    viewModel { LoginViewModel(repository = get(), sharedPreferencesManager = get()) }
+    viewModel { RegisterViewModel(repository = get(), sharedPreferencesManager = get()) }
 }

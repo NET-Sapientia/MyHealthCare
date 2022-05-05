@@ -3,13 +3,14 @@ package com.example.myhealthcareapp.fragments.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myhealthcareapp.cache.SharedPreferencesManager
 import com.example.myhealthcareapp.data.repository.AuthenticationRepository
-import com.example.myhealthcareapp.model.repository.auth.Login
-import com.example.myhealthcareapp.model.response.MedicLoginResponse
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
-class LoginViewModel(private val repository: AuthenticationRepository) : ViewModel() {
+class LoginViewModel(
+    private val repository: AuthenticationRepository,
+    private val sharedPreferencesManager: SharedPreferencesManager
+) : ViewModel() {
 
     var uiState: MutableLiveData<UiState> = MutableLiveData(UiState.Normal)
 
@@ -18,8 +19,13 @@ class LoginViewModel(private val repository: AuthenticationRepository) : ViewMod
             when (val result = repository.loginClient(email = email, password = password)) {
                 null -> uiState.value = UiState.Error
                 else -> {
-                   uiState.value =  UiState.LoginSuccess
-                    // cache user
+                    uiState.value =  UiState.LoginSuccess
+                    sharedPreferencesManager.saveUser(
+                        id = result.result!!.id,
+                        name = result.result.name,
+                        email = result.result.email,
+                        address = result.result.address
+                    )
                 }
             }
         }

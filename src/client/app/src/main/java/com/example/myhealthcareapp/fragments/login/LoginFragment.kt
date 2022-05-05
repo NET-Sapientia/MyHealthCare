@@ -8,7 +8,6 @@ import android.widget.*
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
-import com.example.myhealthcareapp.cache.Cache
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.fragments.forgotPassword.ForgotPasswordFragment
 import com.example.myhealthcareapp.fragments.makeAppointment.HospitalListFragment

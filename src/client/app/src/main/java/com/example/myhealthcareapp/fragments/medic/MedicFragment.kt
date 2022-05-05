@@ -11,7 +11,6 @@ import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.adapters.MedicAppointmentAdapter
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
-import com.example.myhealthcareapp.cache.Cache
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.model.response.ClientAppointmentResponse
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,8 +28,6 @@ class MedicFragment : BaseFragment(){
     ): View? {
         val view = inflater.inflate(R.layout.fragment_medic, container, false)
 
-        Log.d("medic", Cache.getMedic().toString())
-
         recyclerView = view.findViewById(R.id.recycler_view)
 
         viewModel.medicAppointments.observe(viewLifecycleOwner, { response ->
@@ -41,7 +38,7 @@ class MedicFragment : BaseFragment(){
             Log.d("medic", response.message().toString())
         })
 
-        viewModel.getMedicAppointment(Cache.getMedic().id)
+        viewModel.getMedicAppointment(1)
 
         return view
     }

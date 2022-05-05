@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhealthcareapp.adapters.MyAppointmentsAdapter
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
-import com.example.myhealthcareapp.cache.Cache
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.interfaces.OnItemClickListener
@@ -41,7 +40,7 @@ class MyAppointmentsFragment : BaseFragment(), OnItemClickListener {
             }
         })
 
-        viewModel.getAppointments(Cache.getClient().id)
+        viewModel.getAppointments(1)
 
         return view
     }

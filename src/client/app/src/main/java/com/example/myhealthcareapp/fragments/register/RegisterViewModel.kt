@@ -3,10 +3,14 @@ package com.example.myhealthcareapp.fragments.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myhealthcareapp.cache.SharedPreferencesManager
 import com.example.myhealthcareapp.data.repository.AuthenticationRepository
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(private val repository: AuthenticationRepository) : ViewModel() {
+class RegisterViewModel(
+    private val repository: AuthenticationRepository,
+    private val sharedPreferencesManager: SharedPreferencesManager
+) : ViewModel() {
 
     var uiState: MutableLiveData<UiState> = MutableLiveData(UiState.Normal)
 
@@ -21,7 +25,12 @@ class RegisterViewModel(private val repository: AuthenticationRepository) : View
                 null -> uiState.value = UiState.Error
                 else -> {
                     uiState.value = UiState.SignUpSuccess
-                    // cache user
+                    sharedPreferencesManager.saveUser(
+                        id = result.result!!.id,
+                        name = result.result.name,
+                        email = result.result.email,
+                        address = result.result.address
+                    )
                 }
             }
         }

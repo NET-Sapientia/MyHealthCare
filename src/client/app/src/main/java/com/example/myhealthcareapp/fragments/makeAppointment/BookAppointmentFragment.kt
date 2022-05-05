@@ -16,7 +16,6 @@ import android.util.Log
 import android.widget.Toast
 import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
-import com.example.myhealthcareapp.cache.Cache
 import com.example.myhealthcareapp.fragments.BaseFragment
 import com.example.myhealthcareapp.fragments.myAppointments.MyAppointmentsFragment
 import com.example.myhealthcareapp.interfaces.OnItemClickListener
@@ -225,7 +224,7 @@ class BookAppointmentFragment : BaseFragment(),
                 )
 
                 val appointment = MakeAppointment(
-                    clientId = Cache.getClient().id.toString(),
+                    clientId = "1",
                     hospitalId = currentHospitalId,
                     medicalDepartmentId = currentDepartmentId,
                     medicId = currentMedic.id.toString(),

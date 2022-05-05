@@ -13,7 +13,6 @@ import com.example.myhealthcareapp.MainActivity
 import com.example.myhealthcareapp.R
 import com.example.myhealthcareapp.adapters.HospitalRecyclerViewAdapter
 import com.example.myhealthcareapp.data.v1.MyHealthCareViewModel
-import com.example.myhealthcareapp.cache.Cache
 import com.example.myhealthcareapp.constants.Constant.HospitalId
 import com.example.myhealthcareapp.constants.Constant.HospitalName
 import com.example.myhealthcareapp.fragments.BaseFragment
@@ -35,27 +34,15 @@ class HospitalListFragment : BaseFragment(), OnItemClickListener {
     ): View {
         val view = inflater.inflate(R.layout.fragment_hospital_list, container, false)
 
-        viewModel.hospitals.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful) {
+        viewModel.hospitals.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccessful) {
                 Log.d("Hospitals", response.body()?.data?.size.toString())
                 hospitals = response.body()?.data as MutableList
-                val email = (mActivity as MainActivity).mAuth.currentUser?.email
-                if (email != null) {
-                    viewModel.getClient(email)
-                }
-            }
-            else {
+                setupUI(view)
+            } else {
                 Log.e("HospitalError", response.errorBody().toString())
             }
-        })
-
-        viewModel.client.observe(viewLifecycleOwner, { response ->
-            if(response.isSuccessful) {
-                response.body()?.let { Cache.setClient(it.data) }
-                Log.d("Client", response.body().toString())
-                setupUI(view)
-            }
-        })
+        }
 
         viewModel.loadHospitals()
 

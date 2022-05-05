@@ -39,15 +39,15 @@ class ForgotPasswordFragment : BaseFragment() {
 
         resetButton.setOnClickListener {
             if(validateEmail()){
-                (mActivity as MainActivity).mAuth.sendPasswordResetEmail(email.text.toString())
-                    .addOnCompleteListener(requireActivity()) { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(requireContext(), "Reset link sent to your email", Toast.LENGTH_LONG).show()
-                            (activity as MainActivity).replaceFragment(LoginFragment(), R.id.fragment_container)
-                        } else {
-                            Toast.makeText(requireContext(), "Unable to send reset mail", Toast.LENGTH_LONG).show()
-                        }
-                    }
+//                (mActivity as MainActivity).mAuth.sendPasswordResetEmail(email.text.toString())
+//                    .addOnCompleteListener(requireActivity()) { task ->
+//                        if (task.isSuccessful) {
+//                            Toast.makeText(requireContext(), "Reset link sent to your email", Toast.LENGTH_LONG).show()
+//                            (activity as MainActivity).replaceFragment(LoginFragment(), R.id.fragment_container)
+//                        } else {
+//                            Toast.makeText(requireContext(), "Unable to send reset mail", Toast.LENGTH_LONG).show()
+//                        }
+//                    }
             }
         }
     }
